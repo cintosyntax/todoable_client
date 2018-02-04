@@ -1,8 +1,8 @@
 require 'todoable/version'
 require 'todoable/client'
 require 'todoable/errors'
-
-require 'excon'
+require 'todoable/utils'
+require 'json'
 
 module Todoable
 end

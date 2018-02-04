@@ -1,10 +1,11 @@
 require 'base64'
-require 'json'
-require 'todoable/errors'
+require 'excon'
 require 'todoable/api_response'
+require 'todoable/utils'
 
 module Todoable
   class Client
+    include Todoable::Utils
     attr_accessor :username, :password, :token, :token_expires_at
 
     def initialize(username, password)
@@ -15,7 +16,9 @@ module Todoable
     def authenticate
       res = connection.post(
         path: '/api/authenticate',
-        headers: { 'Authorization' => "Basic #{base64_encoded_credentials}" }
+        headers: stringify_keys(
+          'Authorization': "Basic #{base64_encoded_credentials}"
+        )
       )
 
       raise Errors::InvalidCredentials if res.status == 401
@@ -105,10 +108,9 @@ module Todoable
     def connection
       @connection ||= Excon.new(
         'http://todoable.teachable.tech/',
-        headers: {
-          'Content-Type' => 'application/json',
-          'Accept' => 'application/json'
-        }
+        headers: stringify_keys(
+          'Content-Type': 'application/json', 'Accept': 'application/json'
+        )
       )
     end
 
@@ -124,7 +126,7 @@ module Todoable
 
     def authorization_header
       return if token.nil?
-      { 'Authorization' => "Token token=#{token}" }
+      stringify_keys('Authorization': "Token token=#{token}")
     end
   end
 end

@@ -25,7 +25,12 @@ module Todoable
     end
 
     def data
-      JSON.parse(response.body)
+      body = JSON.parse(response.body)
+      if status_code == 422
+        { errors: body }.stringify_keys
+      else
+        body
+      end
     rescue StandardError
       nil
     end

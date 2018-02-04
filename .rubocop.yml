@@ -1,7 +1,11 @@
 AllCops:
+  TargetRubyVersion: 2.5
   Exclude:
     - 'todoable.gemspec'
     - 'vendor/**/*'
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
 
 Style/Documentation:
   Enabled: false
