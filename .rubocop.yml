@@ -1,0 +1,7 @@
+AllCops:
+  Exclude:
+    - 'todoable.gemspec'
+
+
+Style/Documentation:
+  Enabled: false
