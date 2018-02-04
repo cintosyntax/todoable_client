@@ -1,43 +1,35 @@
-# Todoable
+# Todoable Client
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/todoable`. To experiment with that code, run `bin/console` for an interactive prompt.
+A basic API wrapper client to access Todoable service
 
-TODO: Delete this and the text above, and describe your gem
+# Usage
 
-## Installation
-
-Add this line to your application's Gemfile:
+Initialize a client and perform the call
 
 ```ruby
-gem 'todoable'
+client = Todoable::Client.new('username', 'password')
+client.get_lists
+# =>
+# {
+#     :status_code=>200,
+#     :success=>true,
+#     :data=> {
+#         "lists"=> [
+#             {
+#                 "name"=>"milk",
+#                 "src"=>"http://todoable.teachable.tech/api/lists/bd57072f-dc8c-44bf-9017-95da8fb6939b",
+#                 "id"=>"bd57072f-dc8c-44bf-9017-95da8fb6939b"
+#             },
+#             {
+#                 "name"=>"cheese",
+#                 "src"=>"http://todoable.teachable.tech/api/lists/6b854468-2e18-4646-aaa0-4b6738811be9",
+#                 "id"=>"6b854468-2e18-4646-aaa0-4b6738811be9"
+#             }
+#         ]
+#     }
+# }
 ```
 
-And then execute:
+# Handling Invalid Credentials
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install todoable
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/todoable. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the Todoable project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/todoable/blob/master/CODE_OF_CONDUCT.md).
+If authentication fails because of invalid credentials it raises a `Todoable::Errors::InvalidCredentials`.
