@@ -1,4 +1,4 @@
-# Todoable Client
+# Todoable Client ![alt text](https://travis-ci.org/cintosyntax/todoable_client.svg?branch=master "Build Status")
 
 A basic API wrapper client to access Todoable service
 

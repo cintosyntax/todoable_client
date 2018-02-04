@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - 'todoable.gemspec'
+    - 'vendor/**/*'
 
 Style/Documentation:
   Enabled: false
