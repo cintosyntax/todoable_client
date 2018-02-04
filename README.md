@@ -28,6 +28,24 @@ client.get_lists
 #         ]
 #     }
 # }
+
+# Fetch single list record
+client.get_list(id)
+
+# Create list with name provided
+client.create_list(name)
+
+# Delete list specified by the id provided
+client.delete_list(list_id)
+
+# Create a item for a list specified by the id provided
+client.create_list_item(list_id, name)
+
+# Updates a item for a list to finished specified by the list id and item id
+client.finish_list_item(list_id, item_id)
+
+# Delete a item for a list specified by the list id and item id
+client.delete_list_item(list_id, item_id)
 ```
 
 # Handling Invalid Credentials
