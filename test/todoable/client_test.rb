@@ -8,22 +8,16 @@ module Todoable
       Excon.stub({}, body: 'Fallback', status: 200)
     end
 
-    def successful_auth_response
-      {
-        status: 200,
-        body: {
-          token: 'I have a token!', expires_at: Time.now + 20
-        }.to_json
-      }
-    end
-
     class AuthenticationTests < ClientTest
       def test_authenticate_with_valid_credentials
         assert_nil @client.token
         assert_nil @client.token_expires_at
 
-        Excon.stub({}, successful_auth_response)
-        @meme = Minitest::Mock.new
+        Excon.stub({},
+                   status: 200,
+                   body: {
+                     token: 'I have a token!', expires_at: Time.now + 20
+                   }.to_json)
         @client.authenticate
 
         refute_nil @client.token

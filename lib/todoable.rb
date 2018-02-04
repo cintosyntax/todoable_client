@@ -5,5 +5,4 @@ require 'todoable/errors'
 require 'excon'
 
 module Todoable
-  # Your code goes here...
 end

@@ -1,10 +1,10 @@
 require 'base64'
 require 'json'
+require 'todoable/errors'
+require 'todoable/api_response'
 
 module Todoable
   class Client
-    require 'todoable/errors'
-
     attr_accessor :username, :password, :token, :token_expires_at
 
     def initialize(username, password)
@@ -29,9 +29,56 @@ module Todoable
       Time.now > token_expires_at
     end
 
-    # API resource methods
+    # -- API Methods --
+
     def fetch_lists
-      send_api_request(:get, '/api/lists')
+      res = send_api_request(:get, '/lists')
+      Todoable::ApiResponse.new(res).to_hash
+    end
+
+    def fetch_list(id)
+      res = send_api_request(:get, "/lists/#{id}")
+      Todoable::ApiResponse.new(res).to_hash
+    end
+
+    def create_list(name)
+      body = {
+        list: {
+          name: name
+        }
+      }.to_json
+
+      res = send_api_request(:post, '/lists', body: body)
+      Todoable::ApiResponse.new(res).to_hash
+    end
+
+    def delete_list(id)
+      res = send_api_request(:delete, "/lists/#{id}")
+      Todoable::ApiResponse.new(res).to_hash
+    end
+
+    def create_list_item(list_id, item_name)
+      body = {
+        item: {
+          name: item_name
+        }
+      }.to_json
+
+      path = "/lists/#{list_id}/items"
+      res = send_api_request(:post, path, body: body)
+      Todoable::ApiResponse.new(res).to_hash
+    end
+
+    def finish_list_item(list_id, item_id)
+      path = "/lists/#{list_id}/items/#{item_id}/finish"
+      res = send_api_request(:put, path)
+      Todoable::ApiResponse.new(res).to_hash
+    end
+
+    def delete_list_item(list_id, item_id)
+      path = "/lists/#{list_id}/items/#{item_id}"
+      res = send_api_request(:delete, path)
+      Todoable::ApiResponse.new(res).to_hash
     end
 
     private
@@ -39,8 +86,9 @@ module Todoable
     def send_api_request(method, path, params = {})
       authenticate if token.nil? || token_expired?
 
-      request_params = { method: method, path: path, body: params[:body] }
-      request_params = request_params.merge(headers: authorization_header)
+      request_params = {
+        method: method, path: "/api/#{path}", body: params[:body]
+      }.merge(headers: authorization_header)
 
       res = connection.request(request_params)
 
