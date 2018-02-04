@@ -2,11 +2,13 @@ PATH
   remote: .
   specs:
     todoable (0.1.0)
+      excon (~> 0.60.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.0)
+    excon (0.60.0)
     minitest (5.11.3)
     parallel (1.12.1)
     parser (2.4.0.2)

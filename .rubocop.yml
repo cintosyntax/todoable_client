@@ -2,6 +2,10 @@ AllCops:
   Exclude:
     - 'todoable.gemspec'
 
-
 Style/Documentation:
   Enabled: false
+
+Metrics/MethodLength:
+  Exclude:
+    - 'test/*_test.rb'
+    - 'test/todoable/*_test.rb'
