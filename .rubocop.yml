@@ -1,16 +1,8 @@
 AllCops:
-  TargetRubyVersion: 2.5
   Exclude:
-    - 'todoable.gemspec'
-    - 'vendor/**/*'
-
-Style/FrozenStringLiteralComment:
-  Enabled: false
+    - 'spec/**/*'
+    - 'Rakefile'
+    - '*.gemspec'
 
 Style/Documentation:
   Enabled: false
-
-Metrics/MethodLength:
-  Exclude:
-    - 'test/*_test.rb'
-    - 'test/todoable/*_test.rb'

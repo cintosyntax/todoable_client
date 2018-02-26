@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bundler/gem_tasks'
 require 'rake/testtask'
 
@@ -8,11 +10,9 @@ Rake::TestTask.new(:test) do |t|
 end
 
 task :spec do
-  begin
-    require 'rspec/core/rake_task'
-    RSpec::Core::RakeTask.new(:spec)
-  rescue LoadError
-  end
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:spec)
+rescue e => LoadError
 end
 
-task default: [:test, :spec]
+task default: %i[test spec]

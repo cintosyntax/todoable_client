@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'todoable/version'
 require 'todoable/client'
 require 'todoable/errors'

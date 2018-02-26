@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Todoable
   module Utils
     def stringify_keys(target_hash)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Todoable
   class Errors
     class InvalidCredentials < StandardError
