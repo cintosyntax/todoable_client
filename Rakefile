@@ -15,4 +15,8 @@ task :spec do
 rescue e => LoadError
 end
 
-task default: %i[test spec]
+task :rubocop do
+  sh 'rubocop'
+end
+
+task default: %i[test spec rubocop]
