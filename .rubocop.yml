@@ -3,6 +3,7 @@ AllCops:
     - 'spec/**/*'
     - 'Rakefile'
     - '*.gemspec'
+    - 'vendor/**/*'
 
 Style/Documentation:
   Enabled: false
